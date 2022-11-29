@@ -1,0 +1,63 @@
+.wrapper {
+	padding: 0 12px;
+}
+
+.header {
+	font-size: $text;
+	color: $greyText;
+	margin-bottom: 1rem;
+}
+
+.form {
+	display: flex;
+	align-items: center;
+	padding: 0 16px;
+	border-radius: 4px;
+	background-color: white;
+	box-shadow: 0 2px 4px 0 rgb(0 0 82 / 15%);
+	-webkit-box-shadow: 0 2px 4px 0 rgb(0 0 82 / 15%);
+	-moz-box-shadow: 0 2px 4px 0 rgb(0 0 82 / 15%);
+	overflow: hidden;
+	transition: box-shadow 0.2s ease-in-out;
+}
+
+.textInput {
+	border: none;
+	height: 100%;
+	padding: 12px 0;
+	line-height: 1em;
+	display: inline-block;
+	font-size: 0.8rem;
+	flex: 1;
+}
+
+.textInput:focus {
+	outline: none;
+}
+
+.submitButton {
+	color: $primary;
+	background-color: transparent;
+	justify-self: flex-end;
+	border: none;
+	font-size: 0.8rem;
+	border-left: 1px solid $primary;
+	padding-left: 1.2rem;
+	font-weight: 400;
+}
+
+.randomize {
+	color: $greyText;
+	margin-top: 24px;
+	font-size: 0.8rem;
+}
+
+.alignLeft {
+	text-align: left;
+}
+
+.errorMessage {
+	font-size: 0.8rem;
+	color: $red;
+	margin-top: 12px;
+}
