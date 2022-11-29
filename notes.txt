@@ -1,0 +1,11 @@
+Paranoid Android by Radio Head
+From keywords to text: have a dataset that does the other way around.
+Recurrent network. Transformer
+Need to have training data
+
+1. Pick a sentence. Filter from a bunch of sentences 
+
+2. Can you access the training data that that model is trained, and select the training output that fits my context.
+
+3. Python NLP libraries: NLP-K: natural language library, syntactical marking,
+Train it more (retrain). Don't need to train it from the beginning. 
