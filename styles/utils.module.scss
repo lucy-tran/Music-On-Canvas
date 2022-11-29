@@ -1,0 +1,29 @@
+.layout {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.header {
+	height: 8vh;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	background-color: white;
+	padding: 0px 2rem;
+	box-shadow: 0px 0px 12px 12px $shadowShade;
+}
+
+.accountIcon {
+	height: 60%;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	position: relative;
+	overflow: hidden;
+	border: 2px solid $primary;
+}
+
+.accountImg {
+	object-fit: cover;
+}
