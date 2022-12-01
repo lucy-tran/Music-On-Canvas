@@ -8,4 +8,10 @@ module.exports = {
 		],
 		prependData: `@import "~/styles/variables.scss";`,
 	},
+	images: {
+		domains: [
+			"via.placeholder.com",
+			"oaidalleapiprodscus.blob.core.windows.net",
+		],
+	},
 };
