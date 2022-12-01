@@ -1,5 +1,5 @@
 .wrapper {
-	padding: 0 12px;
+	// padding: 0 12px;
 }
 
 .header {
@@ -44,6 +44,7 @@
 	border-left: 1px solid $primary;
 	padding-left: 1.2rem;
 	font-weight: 400;
+	cursor: pointer;
 }
 
 .randomize {

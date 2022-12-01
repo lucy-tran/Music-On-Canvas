@@ -1,7 +1,6 @@
 import styles from "./form.module.scss";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { validateTrack } from "../lib/tracks";
 
 export default function Form({ home, defaultValue, optionAction }) {
 	const [trackInput, setTrackInput] = useState(
@@ -13,7 +12,8 @@ export default function Form({ home, defaultValue, optionAction }) {
 	async function onSubmit(event) {
 		event.preventDefault();
 		let [track, artist] = trackInput.split("by");
-		if (!track || !artist || track.trim() || artist.trim()) {
+		if (!!!track || !!!artist || !!!track.trim() || !!!artist.trim()) {
+			// !!! is the same as !. This is just for readability that we are evaluating a truthy/falsy value, not a boolean.
 			setErrorMessage(
 				"* Incorrect syntax. Please follow the format (without the brackets)."
 			);
@@ -21,19 +21,21 @@ export default function Form({ home, defaultValue, optionAction }) {
 		}
 		track = track.trim();
 		artist = artist.trim();
-		console.log("track: " + track);
-		console.log("artist: " + artist);
 
-		const validateRes = await validateTrack(track, artist);
+		let validateResult = await fetch(`/api/${artist}/${track}`);
+		validateResult = await validateResult.json();
 
-		if (validateRes.error) {
-			setErrorMessage(validateRes.error);
+		if (validateResult.error) {
+			setErrorMessage(validateResult.error);
 			return;
 		}
 
 		router.push({
-			pathname: "/tracks/[mbid]",
-			query: { mbid: validateRes.mbid },
+			pathname: "/results/[artist]/[track]",
+			query: {
+				artist: validateResult.correctArtist,
+				track: validateResult.correctTrack,
+			},
 		});
 	}
 
@@ -61,7 +63,7 @@ export default function Form({ home, defaultValue, optionAction }) {
 				<div className={styles.errorMessage}>{errorMessage}</div>
 			)}
 			<div className={`${styles.randomize} ${!home && styles.alignLeft}`}>
-				or
+				or{" "}
 				<a onClick={optionAction}>
 					{home ? "randomize a track" : "choose from our suggestions"}
 				</a>
