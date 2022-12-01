@@ -25,6 +25,7 @@ export default function Home() {
 					<Image
 						src="/images/account.jpg"
 						layout="fill"
+						alt="Your profile picture"
 						className={utilStyles.accountImg}
 					/>
 				</div>
