@@ -3,6 +3,7 @@ import {
 	getTrackTags,
 	getTrackContent,
 } from "../../../lib/tracks";
+import { generatePrompt, generateImages } from "../../../lib/openai";
 import utilStyles from "../../../styles/utils.module.scss";
 import styles from "../../../styles/Track.module.scss";
 import Head from "next/head";
@@ -10,6 +11,7 @@ import Image from "next/image";
 import NavItem from "../../../components/navItem";
 import Logo from "../../../components/logo";
 import Form from "../../../components/form";
+import AudioPlayer from "../../../components/audioPlayer";
 import { useState } from "react";
 
 export async function getStaticPaths() {
@@ -22,21 +24,42 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const { artist, track } = params;
-	const trackTags = await getTrackTags(artist, track);
-	const content = await getTrackContent(artist, track);
-	const DallE_prompt = "";
+	const tags = await getTrackTags(artist, track);
+
+	// Some tracks may not have a "content" prop, in which case content will be undefined.
+	let content = await getTrackContent(artist, track);
+	if (!content) {
+		content = "";
+	}
+
+	// const DallE_prompt = await generatePrompt(tags);
+
+	const DallE_prompt =
+		"Draw an oil painting based on these keywords: " + tags.join(", ");
+	console.log(DallE_prompt);
+
+	const DallE_images = await generateImages(DallE_prompt);
+
 	return {
 		props: {
-			artist: params.artist,
-			track: params.track,
-			tags: trackTags,
+			artist,
+			track,
+			tags,
 			content,
 			DallE_prompt,
+			DallE_images,
 		},
 	};
 }
 
-export default function Track({ artist, track, tags, content, DallE_prompt }) {
+export default function Track({
+	artist,
+	track,
+	tags,
+	content,
+	DallE_prompt,
+	DallE_images,
+}) {
 	const siteTitle = `${track} by ${artist}`;
 	const [leftPanelMode, setLeftPanelMode] = useState(false);
 	const [rightPanelMode, setRightPanelMode] = useState(false);
@@ -48,7 +71,7 @@ export default function Track({ artist, track, tags, content, DallE_prompt }) {
 			</Head>
 			{/* ---------------------------- NAVIGATION BAR ---------------------------- */}
 			<header className={utilStyles.header}>
-				<div>
+				<div className={styles.headerLeft}>
 					<div className={styles.logoContainer}>
 						<Logo />
 					</div>
@@ -59,28 +82,54 @@ export default function Track({ artist, track, tags, content, DallE_prompt }) {
 					<Image
 						src="/images/account.jpg"
 						layout="fill"
+						alt="Your profile picture"
 						className={utilStyles.accountImg}
 					/>
 				</div>
 			</header>
 			<main className={styles.main}>
 				{leftPanelMode && <section className={styles.leftPanel}></section>}
-				<div>
+				<div className={styles.middlePanel}>
 					{/* ---------------------------- FORM ---------------------------- */}
-					<section>
-						<Form
-							defaultValue={siteTitle}
-							optionAction={() => setLeftPanelMode(true)}
-						/>
-					</section>
+					{artist && track && (
+						<section className={styles.formSection}>
+							<Form
+								defaultValue={siteTitle}
+								optionAction={() => setLeftPanelMode(!leftPanelMode)}
+							/>
+						</section>
+					)}
 					{/* -------------------- DALL-E IMAGE RESULTS -------------------- */}
-					<section></section>
+					{DallE_images && (
+						<section className={styles.imageSection}>
+							<div className={styles.imgSectTitle}>
+								Here's what the track may look like . . .
+							</div>
+							<div className={styles.gallery}>
+								{DallE_images.map((image, index) => {
+									console.log(image.url);
+									return (
+										<div className={styles.imageContainer} key={index}>
+											<Image
+												priority
+												src={image.url}
+												// src="/images/account.jpg"
+												alt={DallE_prompt}
+												layout="fill"
+												className={styles.dallEImage}
+											/>
+										</div>
+									);
+								})}
+							</div>
+						</section>
+					)}
 					{/* ------------------------- SLIDESHOW --------------------------- */}
-					<section></section>
+					<section className={styles.slideshowSection}></section>
 					{/* --------------------- STICKY AUDIO PLAYER --------------------- */}
-					<section></section>
+					<section className={styles.playerSection}></section>
 				</div>
-				{rightPanelMode && <section></section>}
+				{rightPanelMode && <section className={styles.rightPanel}></section>}
 			</main>
 		</div>
 	);
