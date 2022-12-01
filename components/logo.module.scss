@@ -1,9 +1,10 @@
 .logo {
 	font-size: 25px;
 	font-weight: 800;
-	pointer-events: none;
+	// pointer-events: none;
 	position: relative;
 	animation: drop 1s linear, color 5s infinite linear;
+	cursor: pointer;
 }
 
 .homeLogo {
