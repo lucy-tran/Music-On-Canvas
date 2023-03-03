@@ -8,10 +8,10 @@ const openai = new OpenAIApi(configuration);
 export default async function handler(req, res) {
 	const tags = req.body.tags;
 	const promptPrefix = "Write an image description based on these keywords: ";
-	const tagsStr = tags.join(", ");
+
 	const completion = await openai.createCompletion({
 		model: "text-davinci-003",
-		prompt: promptPrefix + tagsStr,
+		prompt: promptPrefix + tags,
 		temperature: 0.15,
 		max_tokens: 100,
 	});

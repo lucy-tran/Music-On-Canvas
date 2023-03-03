@@ -47,6 +47,11 @@
 	cursor: pointer;
 }
 
+.submitButton:hover {
+	color: rgb(189, 189, 189);
+	text-decoration: bold;
+}
+
 .randomize {
 	color: $greyText;
 	margin-top: 24px;

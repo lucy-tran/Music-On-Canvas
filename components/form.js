@@ -11,7 +11,7 @@ export default function Form({ home, defaultValue, optionAction }) {
 
 	async function onSubmit(event) {
 		event.preventDefault();
-		let [track, artist] = trackInput.split("by");
+		let [track, artist] = trackInput.split(" by ");
 		if (!!!track || !!!artist || !!!track.trim() || !!!artist.trim()) {
 			// !!! is the same as !. This is just for readability that we are evaluating a truthy/falsy value, not a boolean.
 			setErrorMessage(
@@ -29,6 +29,10 @@ export default function Form({ home, defaultValue, optionAction }) {
 			setErrorMessage(validateResult.error);
 			return;
 		}
+
+		console.log(
+			`Validated ${validateResult.track} by ${validateResult.artist}`
+		);
 
 		router.push({
 			pathname: "/results/[artist]/[track]",
