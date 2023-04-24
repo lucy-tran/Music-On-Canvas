@@ -72,10 +72,8 @@ export default function Track({
 		setImages(null);
 
 		// const tags = await getPopularTrackTags(artist, track);
-		const DallE_prompt = await generatePrompt(tags, 3);
+		const DallE_prompt = await generatePrompt(tags, 4);
 		setPrompt(DallE_prompt);
-
-		console.log("DallE prompt: ", DallE_prompt);
 
 		const DallE_images = await generateImages(DallE_prompt);
 		setImages(DallE_images);
@@ -84,7 +82,6 @@ export default function Track({
 	useEffect(() => {
 		// TODO: Define the window.onSpotifyIframeApiReady function
 		//   https://developer.spotify.com/documentation/embeds/guides/using-the-iframe-api/
-		console.log("aads");
 		if (tags) {
 			fetchData();
 		}
@@ -129,7 +126,7 @@ export default function Track({
 						)}
 						{/* -------------------- DALL-E IMAGE RESULTS -------------------- */}
 						<div className={styles.imgSectTitle}>
-							Here's what the track may look like . . .
+							Here's what the track may look like, with the prompt: {prompt}
 						</div>
 						{images ? (
 							<section className={styles.imageSection}>
