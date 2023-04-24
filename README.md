@@ -1,70 +1,25 @@
-# Getting Started with Create React App
+# Music On Canvas: From Song Tags to Art
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repo is an implementation of the second method from the Music On Canvas Honors project.
 
-## Available Scripts
+To launch a localhost website, navigate to the project directory and run
 
-In the project directory, you can run:
+```
+npm run dev
+```
 
-### `npm start`
+This will start both a local server and the frontend website. This website is built using Next.js, which enables frontend and backend code to stay in the same project and eases the deployment process.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Once the website is launched, enter a song title + " by " + the artist name(s) in the input box and press Enter (or click `Draw`). You'll be directed to a new page while the images are being generated. Possible unaddressed problems can happen, which leads to no outputs on the website, such as the prompt for Dall-E being too long (happens in mode 2 and 4).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+As an experiment, there are currently 4 modes, which are 4 ways in which the prompt for Dall-E is constructed:
 
-### `npm test`
+- Mode 1: "Draw a digital art painting based on these keywords: " + tags with "count" > 10.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Mode 2: An full-sentenced image description generated based on tags with "count" > 10.
 
-### `npm run build`
+- Mode 3: "Draw a digital art painting based on these keywords: " + tags with "count" > 10 and are adjectives related to emotions, or nouns.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Mode 4: An full-sentenced image description generated based on tags with "count" > 10 and are adjectives related to emotions, or nouns.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Mode can be changed in pages/results/[artist]/[track].js, line 75.
