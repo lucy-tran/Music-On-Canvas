@@ -35,14 +35,14 @@
 			align-items: center;
 		}
 
+		.imgSectTitle {
+			font-weight: 600;
+			margin-bottom: 1rem;
+		}
+
 		.imageSection {
 			margin: 1rem 0;
 			// border: 1px solid red;
-
-			.imgSectTitle {
-				font-weight: 600;
-				margin-bottom: 1rem;
-			}
 
 			.gallery {
 				display: grid;
